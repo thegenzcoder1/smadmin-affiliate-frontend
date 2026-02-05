@@ -1,7 +1,7 @@
 import { http } from "./http";
 
-// const API = "https://api.kancheepuramsmsilks.net/api";
-const API = "http://localhost:5000/api";
+const API = "https://api.kancheepuramsmsilks.net/api";
+// const API = "http://localhost:5000/api";
 
 export const createPromoCode = (promoCode) =>
   http(`${API}/promoCode`, {
