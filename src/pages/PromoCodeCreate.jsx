@@ -10,7 +10,7 @@ export default function PromoCodeCreate() {
 
   // Rows for affiliate entry
   const [rows, setRows] = useState([
-    { email: "", discount: "", isSubmitted: false },
+    { email: "", discount: "", isSubmitted: false, affiliateInstagramUsername: "" },
   ]);
 
   const [loading, setLoading] = useState(false);
@@ -39,8 +39,8 @@ const handleCreatePromo = async () => {
   const handleAddAffiliate = async (index) => {
   const row = rows[index];
 
-  if (!row.email || row.discount === "") {
-    alert("Email and discount are required");
+  if (!row.email || row.discount === "" || row.affiliateInstagramUsername == "") {
+    alert("Email, affiliateInstagramUsername and discount are required");
     return;
   }
 
@@ -51,13 +51,14 @@ const handleCreatePromo = async () => {
       promoCode,
       email: row.email,
       discountPercentage: Number(row.discount),
+      affiliateInstagramUsername: row.affiliateInstagramUsername
     });
 
     setRows((prev) => [
       ...prev.map((r, i) =>
         i === index ? { ...r, isSubmitted: true } : r
       ),
-      { email: "", discount: "", isSubmitted: false },
+      { email: "", discount: "", affiliateInstagramUsername: "", isSubmitted: false },
     ]);
   } catch (error) {
     alert(error.message);
@@ -117,6 +118,18 @@ const handleCreatePromo = async () => {
                   handleRowChange(
                     index,
                     "email",
+                    e.target.value
+                  )
+                }
+              />
+              <input
+                placeholder="Affiliate Instagram Username"
+                value={row.affiliateInstagramUsername}
+                disabled={row.isSubmitted}
+                onChange={(e) =>
+                  handleRowChange(
+                    index,
+                    "affiliateInstagramUsername",
                     e.target.value
                   )
                 }
